@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>Mapa MT1 - My Maps</title>
+	<script src="leaflet.js"></script>
+	<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+	<script src="leaflet-google.js"></script>
+	<script src="html2canvas.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="map" style="width: 500px; height:500px"></div>
+	<br /><br /><br />
+	<button onclick="gerarImagem()">Gerar Imagem</button>
+	<script>
+		var map = new L.Map('map', {
+			center: new L.LatLng(-15.61917, -56.06305), zoom: 13
+		});
+		var googleLayer = new L.Google('ROADMAP');
+		map.addLayer(googleLayer);
+
+		var geojsonFeature = {
+			"type": "Feature",
+			"properties": {
+				"name": "Coors Field"
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-15.61917, -56.06305]
+			}
+		};
+
+		L.geoJson(geojsonFeature).addTo(map);
+
+
+	function gerarImagem(){
+		
+		html2canvas(document.body, {
+		  onrendered: function(canvas) {
+			document.body.appendChild(canvas);
+		  }
+		});
+	}
+	</script>
+</body>
+</html>
